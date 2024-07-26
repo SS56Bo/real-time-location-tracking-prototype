@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map with Marker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      async function loadCoordinates() {
+        try {
+          const response = await fetch('/coordinates');
+          const storeArray = await response.json();
+          console.log(storeArray); // For debugging purposes
+
+          // Ensure correct order: latitude, longitude
+          const [latitude, longitude] = storeArray[0];
+
+          // Assuming you're using Leaflet for map rendering
+          const map = L.map('map').setView([latitude, longitude], 21);
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+          }).addTo(map);
+
+          L.marker([latitude, longitude])
+            .addTo(map)
+            .bindPopup('Marker at coordinates')
+            .openPopup();
+        } catch (error) {
+          console.error('Error loading coordinates:', error);
+        }
+      }
+
+      window.onload = loadCoordinates;
+    </script>
+  </head>
+  <body>
+    <div id="map" style="height: 600px"></div>
+  </body>
+</html>
