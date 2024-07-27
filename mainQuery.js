@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 let storeArray = [];
 
 const uri =
-  'mongodb+srv://Krishanu:2792MongoDB!@Cluster0.ulbjxqh.mongodb.net/geoJsonTest?retryWrites=true&w=majority&appName=Cluster0';
+  'mongodb+srv://Krishanu:<Password>@Cluster0.ulbjxqh.mongodb.net/geoJsonTest?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose
   .connect(uri, {
